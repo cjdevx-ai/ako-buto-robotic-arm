@@ -1,0 +1,13 @@
+ultralytics
+opencv-python
+pillow
+numpy
+inference-sdk
+python-dotenv
+roboflow
+onnxruntime
+SpeechRecognition
+PyAudio
+openai
+elevenlabs
+pygame
