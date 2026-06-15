@@ -197,7 +197,7 @@ def main():
                     
                     # Update data for visualization
                     latest_detections = detections[valid_indices]
-                    latest_labels = [f"({x:.1f}, {y:.1f})" for x, y in centers]
+                    latest_labels = [f"{detections.data['class_name'][i].upper()}" for i in valid_indices]
                     
                     if first_valid_obj and ser:
                         mx, my = first_valid_obj["mx"], first_valid_obj["my"]
@@ -225,8 +225,8 @@ def main():
                                 send_angles(ser, drop_angles)
                                 time.sleep(1)
                                 
-                                # 5. Open Grip (s5=40)
-                                send_angles(ser, drop_angles[:5] + [40])
+                                # 5. Open Grip (s5=30)
+                                send_angles(ser, drop_angles[:5] + [30])
                                 time.sleep(1)
                                 
                                 # 6. Back to Starting Position
