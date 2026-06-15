@@ -1,13 +1,9 @@
 ultralytics
 opencv-python
-pillow
 numpy
 inference-sdk
 python-dotenv
 roboflow
+supervision
+pyserial
 onnxruntime
-SpeechRecognition
-PyAudio
-openai
-elevenlabs
-pygame
