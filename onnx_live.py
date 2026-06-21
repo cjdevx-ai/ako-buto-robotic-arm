@@ -8,7 +8,7 @@ import supervision as sv
 def main():
     parser = argparse.ArgumentParser(description="Optimized YOLO ONNX Live Camera Detection")
     parser.add_argument('--model', type=str, default='onnx_models/best.onnx', help='Path to ONNX model')
-    parser.add_argument('--index', type=int, default=1, help='OpenCV camera index')
+    parser.add_argument('--index', type=int, default=0, help='OpenCV camera index')
     parser.add_argument('--confidence', type=float, default=0.5, help='Confidence threshold')
     parser.add_argument('--roi_size', type=float, default=0.6, help='ROI size fraction')
     parser.add_argument('--imgsz', type=int, default=320, help='Inference image size')

@@ -11,7 +11,7 @@ load_dotenv()
 
 def main():
     parser = argparse.ArgumentParser(description="Roboflow Live Camera Detection with ROI")
-    parser.add_argument('--index', type=int, default=1, help='OpenCV camera index (default: 0)')
+    parser.add_argument('--index', type=int, default=0, help='OpenCV camera index (default: 0)')
     parser.add_argument('--model_id', type=str, help='Roboflow model ID (overrides .env)')
     parser.add_argument('--api_key', type=str, help='Roboflow API Key (overrides .env)')
     parser.add_argument('--confidence', type=float, default=0.5, help='Confidence threshold (default: 0.5)')
@@ -79,25 +79,22 @@ def main():
             if len(detections) > 0:
                 # Filter detections that are inside the ROI center point
                 # xyxy is [x1, y1, x2, y2]
-                centers = []
                 valid_indices = []
                 
                 for i, bbox in enumerate(detections.xyxy):
                     cx, cy = int((bbox[0] + bbox[2]) / 2), int((bbox[1] + bbox[3]) / 2)
                     if x1 <= cx <= x2 and y1 <= cy <= y2:
-                        # Scale coordinates: 
-                        # x: 0 to 15
-                        # y: 0 to 11
-                        scaled_x = (cx - x1) * 15 / roi_w
-                        scaled_y = (cy - y1) * 11 / roi_h
-                        centers.append((scaled_x, scaled_y))
                         valid_indices.append(i)
                 
                 # Keep only detections inside ROI
                 detections = detections[valid_indices]
                 
-                # Replace labels with scaled coordinates
-                labels = [f"({x:.1f}, {y:.1f})" for x, y in centers]
+                # Generate labels dynamically using class name and confidence score
+                labels = [
+                    f"{class_name} {confidence:.2f}"
+                    for class_name, confidence
+                    in zip(detections.data['class_name'], detections.confidence)
+                ]
 
                 # Annotate the frame
                 frame = box_annotator.annotate(scene=frame, detections=detections)

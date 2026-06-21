@@ -59,7 +59,7 @@ def send_angles(ser, angles):
 
 def main():
     parser = argparse.ArgumentParser(description="Autonomous Arm - Object Detection every 5 seconds")
-    parser.add_argument('--index', type=int, default=1, help='OpenCV camera index (default: 1)')
+    parser.add_argument('--index', type=int, default=0, help='OpenCV camera index (default: 1)')
     parser.add_argument('--model_id', type=str, help='Roboflow model ID (overrides .env)')
     parser.add_argument('--api_key', type=str, help='Roboflow API Key (overrides .env)')
     parser.add_argument('--confidence', type=float, default=0.5, help='Confidence threshold (default: 0.5)')
